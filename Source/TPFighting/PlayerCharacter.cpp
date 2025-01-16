@@ -11,6 +11,7 @@ void APlayerCharacter::InitAbilitySystem()
 	check(TPFPlayerState);
 	AbilitySystemComponent = CastChecked<UTPFAbilitySystemComponent>(TPFPlayerState->GetAbilitySystemComponent());
 	AbilitySystemComponent->InitAbilityActorInfo(TPFPlayerState, this);
+	AttributeSet = TPFPlayerState->GetAttributeSet();
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
@@ -19,10 +20,12 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 
 	InitAbilitySystem();
 	GiveDefaultAbilities();
+	InitDefaultAttributes();
 }
 
 void APlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 	InitAbilitySystem();
+	InitDefaultAttributes();
 }

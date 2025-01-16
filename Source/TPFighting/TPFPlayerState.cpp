@@ -2,14 +2,23 @@
 
 
 #include "TPFPlayerState.h"
+
+#include "BaseAttributeSet.h"
 #include "TPFAbilitySystemComponent.h"
 
 
-// Sets default values
 ATPFPlayerState::ATPFPlayerState()
 {
-	NetUpdateFrequency = 100.0f;
+	NetUpdateFrequency = 60.0f;
 	
 	AbilitySystemComponent = CreateDefaultSubobject<UTPFAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+	
+	AttributeSet = CreateDefaultSubobject<UBaseAttributeSet>("AttributeSet");
+}
+
+UBaseAttributeSet* ATPFPlayerState::GetAttributeSet() const
+{
+	return AttributeSet;
 }

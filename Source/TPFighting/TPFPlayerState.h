@@ -9,6 +9,7 @@
 #include "TPFPlayerState.generated.h"
 
 class UTPFAbilitySystemComponent;
+class UBaseAttributeSet;
 
 UCLASS()
 class TPFIGHTING_API ATPFPlayerState : public APlayerState, public IAbilitySystemInterface
@@ -22,10 +23,14 @@ public:
 	{
 		return AbilitySystemComponent;
 	}
+	
+	virtual auto GetAttributeSet() const -> UBaseAttributeSet*;
 
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = " true"))
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	
+	UPROPERTY(Transient)
+	UBaseAttributeSet* AttributeSet;
 };

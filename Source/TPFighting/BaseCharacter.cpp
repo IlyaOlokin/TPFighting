@@ -10,15 +10,33 @@ ABaseCharacter::ABaseCharacter()
  	PrimaryActorTick.bCanEverTick = true;
 }
 
+UBaseAttributeSet* ABaseCharacter::GetAttributeSet() const
+{
+	return AttributeSet;
+}
+
 void ABaseCharacter::GiveDefaultAbilities()
 {
 	check(AbilitySystemComponent);
 	if (!HasAuthority()) return;
-
-	for (TSubclassOf<UGameplayAbility> AbilityClass : DefaultAbilities)
+	for (int i = 0; i < DefaultAbilities.Num(); i++)
 	{
-		const FGameplayAbilitySpec AbilitySpec(AbilityClass, 1);
+		const FGameplayAbilitySpec AbilitySpec(DefaultAbilities[i], 1, i);
 		AbilitySystemComponent->GiveAbility(AbilitySpec);
+	}
+}
+
+void ABaseCharacter::InitDefaultAttributes() const
+{
+	if (!AbilitySystemComponent || !DefaultAttributeEffect) return;
+	
+	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+	const FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DefaultAttributeEffect, 1, EffectContextHandle);
+
+	if (SpecHandle.IsValid())
+	{
+		AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	}
 }
 

@@ -8,6 +8,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "BaseCharacter.generated.h"
 
+class UBaseAttributeSet;
 class UTPFAbilitySystemComponent;
 
 UCLASS()
@@ -15,28 +16,35 @@ class TPFIGHTING_API ABaseCharacter : public ACharacter, public IAbilitySystemIn
 {
 	GENERATED_BODY()
 
-public:
-	
-	ABaseCharacter();
-
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = " true"))
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY(EditDefaultsOnly, Category= "GAS")
+	UPROPERTY()
+	UBaseAttributeSet* AttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "GAS")
 	TArray<TSubclassOf<UGameplayAbility>> DefaultAbilities;
 
+	UPROPERTY(EditDefaultsOnly, Category= "GAS")
+	TSubclassOf<UGameplayEffect> DefaultAttributeEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
+	int Team;
+	
 	void GiveDefaultAbilities();
+	void InitDefaultAttributes() const;
+	
+public:
+	
+	ABaseCharacter();
+	
+	virtual UBaseAttributeSet* GetAttributeSet() const;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{
 		return AbilitySystemComponent;
 	}
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = " true"))
-	const class UBaseAttributeSet* AttributeSet;
-	
-public:	
 	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

@@ -20,19 +20,36 @@ class TPFIGHTING_API UBaseAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UBaseAttributeSet();
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Attribute")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, Health);
+	UFUNCTION()
+	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Attribute")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, MaxHealth);
+	UFUNCTION()
+	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Stance, Category = "Attribute")
 	FGameplayAttributeData Stance;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, Stance);
+	UFUNCTION()
+	void OnRep_Stance(const FGameplayAttributeData& OldStance) const;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxStance, Category = "Attribute")
 	FGameplayAttributeData MaxStance;
 	ATTRIBUTE_ACCESSORS(UBaseAttributeSet, MaxStance);
+	UFUNCTION()
+	void OnRep_MaxStance(const FGameplayAttributeData& OldMaxStance) const;
+
+	
 };
