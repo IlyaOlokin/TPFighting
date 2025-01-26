@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
+#include "UI/AttributesWidget.h"
 #include "BaseEnemy.generated.h"
 
 UCLASS()
@@ -16,7 +17,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-public:
+	virtual void InitHUD() override;
+	
 	
 };

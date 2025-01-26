@@ -20,6 +20,9 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 
+protected:
+	virtual void InitHUD() override;
+
 private:
 	void InitAbilitySystem();
 };

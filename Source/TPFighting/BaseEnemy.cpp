@@ -5,23 +5,31 @@
 
 #include "BaseAttributeSet.h"
 #include "TPFAbilitySystemComponent.h"
+#include "GameFramework/GameSession.h"
+#include "UI/AttributesWidget.h"
 
 
 ABaseEnemy::ABaseEnemy()
 {
-	PrimaryActorTick.bCanEverTick = true;
-	AbilitySystemComponent = CreateDefaultSubobject<UTPFAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	/*AbilitySystemComponent = CreateDefaultSubobject<UTPFAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
-	AttributeSet = CreateDefaultSubobject<UBaseAttributeSet>("AttributeSet");
+	AttributeSet = CreateDefaultSubobject<UBaseAttributeSet>("AttributeSet");*/
 }
 
 void ABaseEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	/*AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	GiveDefaultAbilities();
 	InitDefaultAttributes();
+	InitHUD();*/
 }
 
+void ABaseEnemy::InitHUD()
+{
+	Super::InitHUD();
+
+	/*AttributesWidget = CreateWidget<UAttributesWidget>(GetWorld()->GetFirstPlayerController(),AttributeWidgetClass);
+	AttributesWidget->BindToAttributes(GetAbilitySystemComponent(), GetAttributeSet());*/
+}

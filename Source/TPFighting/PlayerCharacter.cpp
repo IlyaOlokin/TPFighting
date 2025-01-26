@@ -4,28 +4,44 @@
 #include "PlayerCharacter.h"
 #include "TPFAbilitySystemComponent.h"
 #include "TPFPlayerState.h"
+#include "UI/TPFHUD.h"
 
 void APlayerCharacter::InitAbilitySystem()
 {
-	ATPFPlayerState* TPFPlayerState = GetPlayerState<ATPFPlayerState>();
+	/*ATPFPlayerState* TPFPlayerState = GetPlayerState<ATPFPlayerState>();
 	check(TPFPlayerState);
 	AbilitySystemComponent = CastChecked<UTPFAbilitySystemComponent>(TPFPlayerState->GetAbilitySystemComponent());
 	AbilitySystemComponent->InitAbilityActorInfo(TPFPlayerState, this);
-	AttributeSet = TPFPlayerState->GetAttributeSet();
+	AttributeSet = TPFPlayerState->GetAttributeSet();*/
+}
+
+void APlayerCharacter::InitHUD()
+{
+	Super::InitHUD();
+	
+	/*if (const APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (ATPFHUD* TPFHUD =  Cast<ATPFHUD>(PlayerController->GetHUD()))
+		{
+			ATPFPlayerState* TPFPlayerState = Cast<ATPFPlayerState>(GetPlayerState());
+			TPFHUD->Init(TPFPlayerState);
+		}
+	}*/
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	InitAbilitySystem();
+	/*InitAbilitySystem();
 	GiveDefaultAbilities();
-	InitDefaultAttributes();
+	InitDefaultAttributes();*/
 }
 
 void APlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	InitAbilitySystem();
+	/*InitAbilitySystem();
 	InitDefaultAttributes();
+	InitHUD();*/
 }
