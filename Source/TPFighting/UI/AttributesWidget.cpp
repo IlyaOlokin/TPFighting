@@ -6,8 +6,15 @@
 
 void UAttributesWidget::BindToAttributes(UAbilitySystemComponent* ASC, const UBaseAttributeSet* AttributeSet)
 {
-	HealthPercent = NUMERIC_VALUE(AttributeSet, Health) / NUMERIC_VALUE(AttributeSet, MaxHealth);
-	StancePercent = NUMERIC_VALUE(AttributeSet, Stance) / NUMERIC_VALUE(AttributeSet, MaxStance);
+	try
+	{
+		HealthPercent = NUMERIC_VALUE(AttributeSet, Health) / NUMERIC_VALUE(AttributeSet, MaxHealth);
+		StancePercent = NUMERIC_VALUE(AttributeSet, Stance) / NUMERIC_VALUE(AttributeSet, MaxStance);
+	}
+	catch (...)
+	{
+	}
+	
 
 	ASC->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetHealthAttribute()).AddLambda(
 		[this, AttributeSet](const FOnAttributeChangeData& Data)->void

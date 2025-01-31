@@ -28,20 +28,3 @@ void APlayerCharacter::InitHUD()
 		}
 	}*/
 }
-
-void APlayerCharacter::PossessedBy(AController* NewController)
-{
-	Super::PossessedBy(NewController);
-
-	/*InitAbilitySystem();
-	GiveDefaultAbilities();
-	InitDefaultAttributes();*/
-}
-
-void APlayerCharacter::OnRep_PlayerState()
-{
-	Super::OnRep_PlayerState();
-	/*InitAbilitySystem();
-	InitDefaultAttributes();
-	InitHUD();*/
-}

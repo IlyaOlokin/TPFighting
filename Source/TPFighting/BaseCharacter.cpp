@@ -11,7 +11,7 @@
 ABaseCharacter::ABaseCharacter()
 {
  	PrimaryActorTick.bCanEverTick = true;
-
+	
 	if (CharacterType == NPC)
 	{
 		InitAbilitySystem();
@@ -113,18 +113,24 @@ void ABaseCharacter::InitHUD()
 void ABaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
-	InitAbilitySystem();
-	GiveDefaultAbilities();
-	InitDefaultAttributes();
+	if (CharacterType == Player)
+	{
+		InitAbilitySystem();
+		GiveDefaultAbilities();
+		InitDefaultAttributes();
+		InitHUD();
+	}
 }
 
 void ABaseCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	InitAbilitySystem();
-	InitDefaultAttributes();
-	InitHUD();
+	if (CharacterType == Player)
+	{
+		InitAbilitySystem();
+		InitDefaultAttributes();
+		InitHUD();
+	}
 }
 
 void ABaseCharacter::Tick(float DeltaTime)

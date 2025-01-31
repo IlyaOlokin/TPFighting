@@ -15,9 +15,8 @@ class UTPFAbilitySystemComponent;
 UENUM(BlueprintType)
 enum ECharacterType
 {
-	None,
-	Player,
-	NPC
+	NPC,
+	Player
 };
 
 UCLASS()
@@ -32,7 +31,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character", meta = (AllowPrivateAccess = " true"))
 	TEnumAsByte<ECharacterType> CharacterType;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = " true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS", meta = (AllowPrivateAccess = " true"))
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
@@ -57,12 +56,15 @@ protected:
 	
 	void GiveDefaultAbilities();
 	void InitDefaultAttributes() const;
+	
+	UFUNCTION(BlueprintCallable)
 	virtual void InitHUD();
 	
 public:
 	
 	ABaseCharacter();
-	
+
+	UFUNCTION(BlueprintCallable)
 	virtual UBaseAttributeSet* GetAttributeSet() const;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override

@@ -16,9 +16,7 @@ class TPFIGHTING_API APlayerCharacter : public ABaseCharacter
 	GENERATED_BODY()
 
 public:
-	
-	virtual void PossessedBy(AController* NewController) override;
-	virtual void OnRep_PlayerState() override;
+
 
 protected:
 	virtual void InitHUD() override;
